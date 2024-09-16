@@ -1,40 +1,44 @@
 ﻿using System;
-using System.Threading;
-namespace RocketLaunchApp
+
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main(string[] args)
+        // Welcome message
+        Console.WriteLine("Welcome to the Guessing Game!");
+        Console.WriteLine("The computer is thinking of a number between 1-100. Can you guess it?");
+
+        // Generate a random number between 1 and 100
+        Random random = new Random();
+        int targetNumber = random.Next(1, 101);
+
+        int userGuess;
+        do
         {
-            Console.WriteLine("Welcome to Rocket Countdown!");
-            Console.WriteLine("Get ready for liftoff...");
-            // Countdown using a for loop
-            for (int i = 10; i >= 1; i--)
+            // Prompt user for a guess
+            Console.Write("Enter your guess: ");
+            while (!int.TryParse(Console.ReadLine(), out userGuess))
             {
-                Console.WriteLine($"T-{i} seconds...");
-                Thread.Sleep(1000); // Wait for 1 second
+                Console.Write("Invalid input. Please enter a number: ");
             }
-            // Ignition!
-            Console.WriteLine("Ignition sequence start!");
-            Console.WriteLine("Engines are firing...");
-            // Countdown using a while loop
-            int countdown = 5;
-            while (countdown > 0)
+
+            // Compare the guess to the target number
+            if (userGuess > targetNumber)
             {
-                Console.WriteLine($"T-{countdown} seconds...");
-                Thread.Sleep(1000); // Wait for 1 second
-                countdown--;
+                Console.WriteLine("Your guess is too high. Try again.");
             }
-            // Liftoff!
-            Console.WriteLine("Liftoff! The rocket is on its way to space!");
-            Console.WriteLine("Mission accomplished. Have a stellar day!");
-            // Simulate rocket ascent (just for fun)
-            for (int altitude = 0; altitude <= 100; altitude += 10)
+            else if (userGuess < targetNumber)
             {
-                Console.WriteLine($"Altitude: {altitude} km");
-                Thread.Sleep(500); // Wait for half a second
+                Console.WriteLine("Your guess is too low. Try again.");
             }
-        }
+            else
+            {
+                Console.WriteLine("Congratulations! You guessed the correct number!");
+            }
+
+        } while (userGuess != targetNumber);
+
+        // Congratulate the user
+        Console.WriteLine("You won! Thanks for playing the Guessing Game!");
     }
 }
-
